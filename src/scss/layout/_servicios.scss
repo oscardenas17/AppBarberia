@@ -4,6 +4,7 @@
     }
 
     .servicio{
+        user-select: none; 
         margin-bottom: 2rem;
         background-color: $blanco;
         padding: $separacion / 2;
@@ -24,6 +25,15 @@
             margin: 0;
             font-size: 3rem;
             font-weight: $bold;
+        }
+
+        &.seleccionado{
+          
+            background-color: $azul;
+            p{
+                color: $blanco;
+                
+            }
         }
     }
  
