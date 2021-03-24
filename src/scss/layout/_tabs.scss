@@ -10,6 +10,11 @@
        text-transform: uppercase;
        border: none;
 
+        &:hover{
+            background-color: $azul ;
+            color: $blanco;
+        }
+
        &:hover{
            cursor: pointer;
        }
