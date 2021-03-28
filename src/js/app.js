@@ -17,6 +17,9 @@ function inicarApp(){
     paginaSiguiente();
     paginaAnterior();
 
+    //Comprueba la pagina actual para ocultar o mostrar la paginacion
+    botonesPaginador();
+
 }
 
 function mostrarSeccion(){
@@ -121,6 +124,7 @@ function paginaSiguiente(){
         pagina++;
 
         console.log(pagina);
+        botonesPaginador();
     })
 }
 function paginaAnterior(){
@@ -129,5 +133,20 @@ function paginaAnterior(){
         pagina--;
 
         console.log(pagina);
+        botonesPaginador();
     })
+}
+
+function botonesPaginador(){
+    const paginaSiguiente = document.querySelector('#siguiente');
+    const paginaAnterior= document.querySelector('#anterior');
+
+    if (pagina === 1) {
+        paginaAnterior.classList.add('ocultar');
+    }else if( pagina === 2){
+        paginaAnterior.classList.remove('ocultar');
+        paginaSiguiente.classList.remove('ocultar');
+    }else if(pagina === 3){
+        paginaSiguiente.classList.add('ocultar');
+    }
 }
