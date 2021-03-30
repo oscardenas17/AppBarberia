@@ -36,6 +36,9 @@ function inicarApp(){
 
     //Muestra el resumen de la cita (o mensaje de error)
     mostrarResumen();
+
+    //Almacena el nombre de la cita en el objeto
+    nombreCita();
 }
 
 function mostrarSeccion(){
@@ -219,5 +222,22 @@ function mostrarResumen(){
         //agregar a resumenDiv
         resumenDIV.appendChild(noServicios);
     }
+}
+
+
+//Insert name
+function nombreCita(){
+    const nombreInput = document.querySelector('#nombre');
+
+    nombreInput.addEventListener('input', e =>{
+        const nombreTexto = e.target.value.trim();
+
+        //Validacion nombre no vacio
+        if(nombreTexto === '' || nombreTexto.length <4){
+            console.log()
+        }else{
+            cita.nombre = nombreTexto;
+       }
+     });
 }
 
