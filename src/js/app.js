@@ -1,8 +1,22 @@
+//PAGINACION
 let pagina = 1;
+
+
+//VALIDACION PARA FORM
+const cita = {
+    nombre: '',
+    fecha : '',
+    hora: '',
+    servicios: []
+
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function(){
     inicarApp();
 })
+
 
 function inicarApp(){
     mostrarServicios();
@@ -20,17 +34,16 @@ function inicarApp(){
     //Comprueba la pagina actual para ocultar o mostrar la paginacion
     botonesPaginador();
 
+    //Muestra el resumen de la cita (o mensaje de error)
+    mostrarResumen();
 }
 
 function mostrarSeccion(){
-
     //Eliminar mostrar-seccion de la seccion anterior
     const seccionAnterior = document.querySelector('.mostrar-seccion');
     if(seccionAnterior){
         seccionAnterior.classList.remove('mostrar-seccion');
     }
-
-
    
     const seccionActual = document.querySelector(`#paso-${pagina}`);
     seccionActual.classList.add('mostrar-seccion');
@@ -40,7 +53,6 @@ function mostrarSeccion(){
     if(tabAnterior){
         tabAnterior.classList.remove('actual');
     }
-
     //Resalta el tab actual
     const tab = document.querySelector(`[data-paso="${pagina}"]`);
     tab.classList.add('actual');
@@ -158,3 +170,27 @@ function botonesPaginador(){
 
     mostrarSeccion(); //Cambia la seccion que se muestra por la de la pagina
 }
+
+
+
+
+//VALIDACION FORM
+function mostrarResumen(){
+    //dESTRUCTURING
+    const {nombre, fecha, hora, servicios} = cita;
+    //SELECCIONAR RESUMEN
+    const resumenDIV = document.querySelector('.contenido-resumen');
+    //VALIDACION OBJETO ¿vacio?
+    if(Object.values(cita).includes('')){
+        const noServicios = document.createElement('P');
+        noServicios.textContent = 'Faltan Datos Solicitados';
+
+        noServicios.classList.add('invalidar-cita');
+
+        //agregar a resumenDiv
+        resumenDIV.appendChild(noServicios);
+
+
+    }
+}
+
