@@ -129,12 +129,45 @@ function seleccionarServicio(e){
 
     if (elemento.classList.contains('seleccionado')) {
         elemento.classList.remove('seleccionado');
+
+        //seleccionar o deseleccionar el servicio en data
+        // console.log(elemento.dataset.idServicio)
+        const id = parseInt(elemento.dataset.idServicio);
+        eliminarServicio(id);
     }else{
         elemento.classList.add('seleccionado');
-    }
-    
+
+        //seleccionar o deseleccionar el servicio en data
+        // console.log(elemento.dataset.idServicio):
+        // console.log(elemento.firstElementChild.textContent):
+
+        const servicioObj = {
+            id: parseInt(elemento.dataset.idServicio),
+            nombre: elemento.firstElementChild.textContent,
+            precio: elemento.firstElementChild.nextElementSibling.textContent     
+          }
+        //   console.log(servicioObj);
+
+          agregarServicio(servicioObj);
+    }  
 }
 
+
+///FUNCIONES PARA SERVICIOS
+function  eliminarServicio(id){
+    const { servicios } = cita;
+    cita.servicios = servicios.filter( service => service.id != id);
+     console.log(cita);
+}
+function agregarServicio(servicioObj){
+    const { servicios } = cita;
+    cita.servicios = [...servicios, servicioObj];
+    //  console.log(cita);
+}
+///FUNCIONES PARA SERVICIOS
+
+
+//PAGINADORES
 function paginaSiguiente(){
     const paginaSiguiente = document.querySelector('#siguiente');
     paginaSiguiente.addEventListener('click', () =>{
@@ -153,11 +186,9 @@ function paginaAnterior(){
         botonesPaginador();
     })
 }
-
 function botonesPaginador(){
     const paginaSiguiente = document.querySelector('#siguiente');
     const paginaAnterior= document.querySelector('#anterior');
-
     if (pagina === 1) {
         paginaAnterior.classList.add('ocultar');
     }else if(pagina === 3){
@@ -170,9 +201,7 @@ function botonesPaginador(){
 
     mostrarSeccion(); //Cambia la seccion que se muestra por la de la pagina
 }
-
-
-
+//PAGINADORES
 
 //VALIDACION FORM
 function mostrarResumen(){
@@ -189,8 +218,6 @@ function mostrarResumen(){
 
         //agregar a resumenDiv
         resumenDIV.appendChild(noServicios);
-
-
     }
 }
 
