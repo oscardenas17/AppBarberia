@@ -39,6 +39,9 @@ function inicarApp(){
 
     //Almacena el nombre de la cita en el objeto
     nombreCita();
+
+    //Almacena la fecha de la cita en el objeto
+    fechaCita();
 }
 
 function mostrarSeccion(){
@@ -275,5 +278,33 @@ function mostrarAlerta(mensaje, tipo){
     //INSERTAR EN EL FORM
     const formulario = document.querySelector('.formulario');
     formulario.appendChild(alerta);
+}
+
+
+function fechaCita(){
+    const fechaInput = document.querySelector('#fecha');
+    fechaInput.addEventListener('input', e =>{
+        //getUTCDay devuelve # edl dia 0= dom
+        const dia = new Date(e.target.value).getUTCDay();
+        console.log(dia);
+        if([0,6].includes(dia)){
+            // console.log('Seleccionaste domingo o sabado, no se labora');
+            e.preventDefault();
+            fechaInput.value = '';
+            mostrarAlerta('Fines de semana no son permitidos', 'error')
+        }else{
+            cita.fecha = fechaInput.value;
+        }
+
+        //generar nombre dia largo (libreria pasar a español moment  o datefns)
+        // const opciones = {
+        //     weekday: 'long',
+        //     year: 'numeric',
+        //     month: 'long'
+        // }
+
+        // console.log(dia.toLocaleDateString('es-ES', opciones));
+      
+    })
 }
 
