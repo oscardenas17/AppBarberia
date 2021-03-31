@@ -233,11 +233,47 @@ function nombreCita(){
         const nombreTexto = e.target.value.trim();
 
         //Validacion nombre no vacio
-        if(nombreTexto === '' || nombreTexto.length <4){
-            console.log()
+        if(nombreTexto === '' || nombreTexto.length <3){
+            mostrarAlerta('nombre no valido', 'error');
         }else{
+            const alerta = document.querySelector('.alerta');
+
+            if(alerta){
+                alerta.remove();
+            }
             cita.nombre = nombreTexto;
        }
      });
+}
+
+function mostrarAlerta(mensaje, tipo){
+    // console.log('msn es', mensaje);
+
+    //si hay un alert previo no generar otro
+    const alertaPrevia = document.querySelector('.alerta');
+    if(alertaPrevia){
+        return;//detiene ejecucion de ese code
+    }
+
+    const alerta = document.createElement('DIV');
+    alerta.textContent = mensaje;
+    alerta.classList.add('alerta');
+
+    if(tipo === 'error'){
+        alerta.classList.add('error');
+    }
+    // console.log(alerta);
+    
+    //Eliminar alerta
+    setTimeout(() => {
+        alerta.remove();
+    }, 3000);
+
+
+
+
+    //INSERTAR EN EL FORM
+    const formulario = document.querySelector('.formulario');
+    formulario.appendChild(alerta);
 }
 
