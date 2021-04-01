@@ -321,7 +321,9 @@ function deshabilitarFechaAnterior(){
     const dia = fechaAhora.getDate() + 1 ;
 
     //Formato deseado: AAAA-MM-DD
-    const fechaDeshabilitar = `${year}-${mes}-${dia}`;
+    // const fechaDeshabilitar = `${year}-${mes}-${dia}`;
+    const fechaDeshabilitar =`${year}-${mes < 10 ? `0${mes}` : mes}-${dia < 10 ? `0${dia}` : dia}`
+   
 
     inputFecha.min= fechaDeshabilitar;
 
