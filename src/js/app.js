@@ -203,6 +203,8 @@ function botonesPaginador(){
     }else if(pagina === 3){
         paginaSiguiente.classList.add('ocultar');
         paginaAnterior.classList.remove('ocultar');
+
+        mostrarResumen(); //Estamos en la pagina 3, cargar el resumen de la cita
     }else {
         paginaAnterior.classList.remove('ocultar');
         paginaSiguiente.classList.remove('ocultar');
@@ -218,6 +220,12 @@ function mostrarResumen(){
     const {nombre, fecha, hora, servicios} = cita;
     //SELECCIONAR RESUMEN
     const resumenDIV = document.querySelector('.contenido-resumen');
+  
+    //LIMPIAR HTML PREVIO EN EL RESUMEN
+    while( resumenDIV.firstChild){
+        resumenDIV.removeChild(resumenDIV.firstChild);
+    }
+  
     //VALIDACION OBJETO ¿vacio?
     if(Object.values(cita).includes('')){
         const noServicios = document.createElement('P');
@@ -227,7 +235,25 @@ function mostrarResumen(){
 
         //agregar a resumenDiv
         resumenDIV.appendChild(noServicios);
+    }else{  // o return;
+        console.log('todo ok')
     }
+    //  MOSTRAR EL RESUMEN
+    const nombreCita = document.createElement('P');
+    nombreCita.innerHTML = `<span> Nombre: </span> ${nombre}`;
+    console.log(nombreCita)
+
+    const fechaCita = document.createElement('P');
+    fechaCita.innerHTML = `<span> Fecha: </span> ${fecha}`;
+
+    const horaCita = document.createElement('P');
+    horaCita.innerHTML = `<span> Hora: </span> ${hora}`;
+
+    resumenDIV.appendChild(nombreCita);
+    resumenDIV.appendChild(fechaCita);
+    resumenDIV.appendChild(horaCita);
+
+
 }
 
 
