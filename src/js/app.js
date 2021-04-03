@@ -45,6 +45,11 @@ function inicarApp(){
 
     //Deshabilita días pasados para la fecha
     deshabilitarFechaAnterior();
+
+
+    //Almacena la hora de la cita  en el objeto
+    horaCita();
+
 }
 
 function mostrarSeccion(){
@@ -256,7 +261,6 @@ function mostrarResumen(){
 
 }
 
-
 //Insert name
 function nombreCita(){
     const nombreInput = document.querySelector('#nombre');
@@ -349,10 +353,54 @@ function deshabilitarFechaAnterior(){
     //Formato deseado: AAAA-MM-DD
     // const fechaDeshabilitar = `${year}-${mes}-${dia}`;
     const fechaDeshabilitar =`${year}-${mes < 10 ? `0${mes}` : mes}-${dia < 10 ? `0${dia}` : dia}`
-   
-
+  
     inputFecha.min= fechaDeshabilitar;
-
-
 }
+
+
+
+    function horaCita(){
+    const inputHora = document.querySelector('#hora');
+
+   
+    
+    inputHora.addEventListener('input', e => {
+
+        const horaCita =  e.target.value;
+        const hora = horaCita.split(':');
+
+      
+
+        if(hora[0] < 8 || hora[0] > 18){
+            console.log('horas no validas');
+            
+            const Alerta = document.querySelector('#horario');
+            Alerta.classList.add('horario');
+
+            const Alerta2 = document.querySelector('#hora');
+            Alerta2.classList.add('horario');
+
+            mostrarAlerta('hora no valida', 'error');
+            setTimeout(() => {
+                inputHora.value = '';
+            }, 3000);
+         
+
+
+        }else{
+            // console.log(' hora valida');
+            
+            const Alerta = document.querySelector('.horario');             Alerta.classList.remove('horario');
+
+            const Alerta2 = document.querySelector('.horario');             
+            Alerta2.classList.remove('horario');
+            
+            cita.hora = horaCita;
+
+            // console.log(cita);
+        }
+
+    });
+}
+
 
