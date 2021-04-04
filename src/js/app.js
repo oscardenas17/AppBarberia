@@ -94,12 +94,18 @@ function cambiarSeccion(){ //cambia entre tabs
 
 async function mostrarServicios(){
     try {
-       const resultado = await fetch('./servicios.json');
+    //    const resultado = await fetch('./servicios.json');
+        const url = 'http://localhost:3000/servicios.php';
+        const resultado = await fetch(url);      
+
        const db = await resultado.json();
+
+
     //   const servicios = db.servicios;
-       const {servicios} = db; //destructuring
+    //    const {servicios} = db; //destructuring de los datos planos del json - no se usa con bd mysql
+
        //Generar HTML
-       servicios.forEach( servicio => {
+       db.forEach( servicio => {
            const {id, nombre,precio} = servicio;
  
        //DOM scripting

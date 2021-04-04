@@ -9,5 +9,5 @@ $db = mysqli_connect(
 if(!$db){
     echo 'error en la conexión';
 }else{
-    echo 'conexión';
+    // echo 'conexión';
 }
