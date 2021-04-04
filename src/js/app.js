@@ -94,18 +94,25 @@ function cambiarSeccion(){ //cambia entre tabs
 
 async function mostrarServicios(){
     try {
-    //    const resultado = await fetch('./servicios.json');
-        const url = 'http://localhost:3000/servicios.php';
-        const resultado = await fetch(url);      
+    
+        //DATOS CON MYSQL
+         const url = 'http://localhost:3000/servicios.php';
+         const resultado = await fetch(url);   
+         const db = await resultado.json();   
 
-       const db = await resultado.json();
+
+        // DATOS CON JSON
+        // const resultado = await fetch('./servicios.json'); 
+        // const db = await resultado.json();
 
 
-    //   const servicios = db.servicios;
+       const servicios = db.servicios; // CON MYSQL
+
     //    const {servicios} = db; //destructuring de los datos planos del json - no se usa con bd mysql
 
        //Generar HTML
-       db.forEach( servicio => {
+      // servicios.forEach( servicio => {
+        db.forEach( servicio => {
            const {id, nombre,precio} = servicio;
  
        //DOM scripting
@@ -246,24 +253,69 @@ function mostrarResumen(){
 
         //agregar a resumenDiv
         resumenDIV.appendChild(noServicios);
+
+        return;
     }    
-    else{  // o return;
-        console.log('todo ok')
-    }
+    // else{  // o return;
+    //     console.log('todo ok')
+    // }
     //  MOSTRAR EL RESUMEN
+
+    const HeadingCita = document.createElement('H3');
+    HeadingCita.textContent = "Resumen de Cita";
+
+
     const nombreCita = document.createElement('P');
     nombreCita.innerHTML = `<span> Nombre: </span> ${nombre}`;
  
-
     const fechaCita = document.createElement('P');
     fechaCita.innerHTML = `<span> Fecha: </span> ${fecha}`;
 
     const horaCita = document.createElement('P');
     horaCita.innerHTML = `<span> Hora: </span> ${hora}`;
 
+    //2 ---
+    const serviciosCita = document.createElement('DIV');
+    serviciosCita.classList.add('resumen-servicios');
+
+    const headingServicios = document.createElement('H3');
+    headingServicios.textContent = "Resumen de Servicios";
+    serviciosCita.appendChild(headingServicios);
+
+
+    // 1 ---Iterar sobre el arreglo de servicios
+    servicios.forEach(servicio =>{
+
+        //con destructuring
+        const {nombre, precio} = servicio;
+        const contenedorServicio = document.createElement('DIV');
+        contenedorServicio.classList.add('contenedor-servicio');
+        
+        const textoServicio = document.createElement('P');
+        // textoServicio.textContent = servicio.nombre;  --sin destructuring
+        //con destructuring
+        textoServicio.textContent = nombre; 
+
+        const precioServicio = document.createElement('P');
+        precioServicio.textContent = precio; 
+        precioServicio.classList.add('precio');
+
+        //colocar texto y precio en el div
+
+        contenedorServicio.appendChild(textoServicio);
+        contenedorServicio.appendChild(precioServicio);
+        //--2.1
+        serviciosCita.appendChild(contenedorServicio);
+
+    });
+
+    resumenDIV.appendChild(HeadingCita);
     resumenDIV.appendChild(nombreCita);
     resumenDIV.appendChild(fechaCita);
     resumenDIV.appendChild(horaCita);
+
+    //*2.2--
+    resumenDIV.appendChild(serviciosCita);
 
 
 }
