@@ -240,13 +240,14 @@ function mostrarResumen(){
 
         //agregar a resumenDiv
         resumenDIV.appendChild(noServicios);
-    }else{  // o return;
+    }    
+    else{  // o return;
         console.log('todo ok')
     }
     //  MOSTRAR EL RESUMEN
     const nombreCita = document.createElement('P');
     nombreCita.innerHTML = `<span> Nombre: </span> ${nombre}`;
-    console.log(nombreCita)
+ 
 
     const fechaCita = document.createElement('P');
     fechaCita.innerHTML = `<span> Fecha: </span> ${fecha}`;
@@ -319,7 +320,7 @@ function fechaCita(){
     fechaInput.addEventListener('input', e =>{
         //getUTCDay devuelve # edl dia 0= dom
         const dia = new Date(e.target.value).getUTCDay();
-        console.log(dia);
+        // console.log(dia);
         if([0,6].includes(dia)){
             // console.log('Seleccionaste domingo o sabado, no se labora');
             e.preventDefault();
@@ -362,17 +363,14 @@ function deshabilitarFechaAnterior(){
     function horaCita(){
     const inputHora = document.querySelector('#hora');
 
-   
-    
     inputHora.addEventListener('input', e => {
 
         const horaCita =  e.target.value;
         const hora = horaCita.split(':');
 
-      
 
         if(hora[0] < 8 || hora[0] > 18){
-            console.log('horas no validas');
+            // console.log('horas no validas'); 
             
             const Alerta = document.querySelector('#horario');
             Alerta.classList.add('horario');
@@ -384,19 +382,16 @@ function deshabilitarFechaAnterior(){
             setTimeout(() => {
                 inputHora.value = '';
             }, 3000);
-         
-
-
         }else{
             // console.log(' hora valida');
             
-            const Alerta = document.querySelector('.horario');             Alerta.classList.remove('horario');
+            const Alerta = document.querySelector('.horario');             
+            Alerta.classList.remove('horario');
 
             const Alerta2 = document.querySelector('.horario');             
             Alerta2.classList.remove('horario');
             
             cita.hora = horaCita;
-
             // console.log(cita);
         }
 
